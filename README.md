@@ -1,28 +1,64 @@
-Remove static watermarks from videos with minimal setup.
+# 🎯 Penghapus Watermark Video
 
-![example of watermark removal](example_processed_frame.png)
+Aplikasi web modern untuk menghapus watermark dari video secara manual dengan teknologi canggih.
 
-Really basic, but works well enough for simple static watermarks, and can run on a laptop CPU (x3 real-time on a i5-5287U (2015 MacBook Pro), x9 real-time on a i5-8400). You can find brief explanations on how it's done [here](https://paulw.tokyo/post/basic-watermark-removal-in-videos/).
+**Dibuat oleh: Dafis Nadhif Saputra**
 
-Dependencies:
-```sh
-# FFMPEG
-installer=$([[ $(uname) == "Darwin" ]] && echo brew || echo apt)
-$installer install ffmpeg
+## ✨ Fitur Utama
 
-# Python libraries
-python3 -m pip install numpy scipy imageio
+- 🎨 **Seleksi Manual**: Pilih area watermark dengan click & drag
+- 🔬 **Teknologi Canggih**: FFmpeg Enhanced Delogo
+- 📱 **Responsive**: Bekerja di semua perangkat
+- ⚡ **Serverless**: Deploy di Vercel untuk performa optimal
+- 🇮🇩 **Bahasa Indonesia**: Interface lengkap dalam bahasa Indonesia
 
-# Optional, to fetch an example video
-# if already installed, make sure youtube-dl is up to date
-$installer install youtube-dl
+## 🚀 Deploy ke Vercel
+
+1. Push code ke GitHub repository
+2. Connect repository ke Vercel
+3. Vercel akan otomatis detect dan deploy
+
+### Environment Variables (Opsional)
+Tidak ada environment variables yang diperlukan untuk deploy basic.
+
+## 💻 Development Local
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-Usage:
-```sh
-# The output will default to append "_cleaned" to the existing name,
-# and use max 50 keyframes
-./remove_watermark.sh /somewhere/my_video.mp4 [/somewhere/output.mp4] [max_keyframes_to_extract]
-```
+## 🛠️ Teknologi
 
-Tested on MacOS 10.14 (x86), MacOS 14.4 (arm) and Ubuntu 20.04
+- **Frontend**: React + Vite
+- **Backend**: Vercel Serverless Functions
+- **Processing**: FFmpeg
+- **Upload**: Formidable
+- **Styling**: CSS Modern + Responsive
+
+## 📖 Cara Penggunaan
+
+1. **Upload Video**: Pilih file video (max 50MB)
+2. **Seleksi Area**: Click & drag untuk memilih area watermark
+3. **Proses**: Klik tombol "Hapus Watermark"
+4. **Download**: Download hasil video yang sudah diproses
+
+## 🎯 Format yang Didukung
+
+- **Input**: MP4, AVI, MOV, WebM
+- **Output**: MP4
+- **Size Limit**: 50MB
+
+## 📝 Lisensi
+
+MIT License - Bebas digunakan untuk projek personal dan komersial.
+
+---
+
+**🇮🇩 Made with ❤️ by Dafis Nadhif Saputra**

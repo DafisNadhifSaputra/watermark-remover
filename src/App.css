@@ -1,0 +1,356 @@
+/* App.css - Modern Watermark Removal Tool Styling */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #2c3e50;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styling */
+.app-header {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 32px 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.app-title {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.app-subtitle {
+  font-size: 20px;
+  color: #7f8c8d;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #667eea;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Main Content */
+.app-main {
+  flex: 1;
+  width: 100%;
+  padding: 48px 24px;
+  background: rgba(255, 255, 255, 0.9);
+  min-height: calc(100vh - 200px);
+}
+
+/* Footer Styling */
+.app-footer {
+  width: 100%;
+  background: rgba(44, 62, 80, 0.95);
+  color: white;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.app-footer p {
+  font-size: 16px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.tech-stack {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.tech-stack span {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.tech-stack span:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Creator Credit */
+.creator-credit {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.creator-credit p {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.creator-credit strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 24px 0;
+  }
+  
+  .header-content {
+    padding: 0 16px;
+  }
+  
+  .app-title {
+    font-size: 32px;
+  }
+  
+  .app-subtitle {
+    font-size: 16px;
+  }
+  
+  .features {
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .feature-item {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+  
+  .app-main {
+    padding: 24px 0;
+  }
+  
+  .tech-stack {
+    gap: 12px;
+  }
+  
+  .tech-stack span {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+/* Responsive Design - Full Screen Fix */
+@media (max-width: 1440px) {
+  .header-content {
+    max-width: 100%;
+    padding: 0 32px;
+  }
+  
+  .app-main {
+    padding: 48px 32px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .header-content {
+    padding: 0 24px;
+  }
+  
+  .app-main {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-processor {
+    padding: 16px;
+  }
+  
+  .processor-header h2 {
+    font-size: 24px;
+  }
+  
+  .processor-header p {
+    font-size: 16px;
+  }
+  
+  .upload-area {
+    padding: 32px 24px;
+  }
+  
+  .upload-icon {
+    font-size: 48px;
+  }
+  
+  .editor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .editor-actions {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .selection-summary {
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .results-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .upload-info {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+/* Force full width for all containers */
+.video-processor,
+.smooth-video-player,
+.video-container {
+  width: 100% !important;
+}
+
+/* Remove max-width restrictions on larger screens */
+@media (min-width: 1441px) {
+  .video-processor {
+    max-width: none !important;
+    width: 100% !important;
+  }
+  
+  .smooth-video-player {
+    max-width: none !important;
+  }
+}
+
+/* Loading and Animation States */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-header,
+.app-main,
+.app-footer {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.7);
+}
+
+/* Global Button Reset */
+button {
+  font-family: inherit;
+}
+
+/* Focus States for Accessibility */
+button:focus,
+input:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .app-header,
+  .app-footer {
+    display: none;
+  }
+  
+  .app-main {
+    padding: 0;
+    background: white;
+  }
+}
