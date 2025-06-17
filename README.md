@@ -1,64 +1,124 @@
-# 🎯 Penghapus Watermark Video
+# 🎯 Video Watermark Remover (Local Development)
 
-Aplikasi web modern untuk menghapus watermark dari video secara manual dengan teknologi canggih.
+Aplikasi desktop untuk menghapus watermark dari video menggunakan FFmpeg native.
 
-**Dibuat oleh: Dafis Nadhif Saputra**
+**⚡ Real Local Processing - No Demo Mode!**
 
-## ✨ Fitur Utama
-
-- 🎨 **Seleksi Manual**: Pilih area watermark dengan click & drag
-- 🔬 **Teknologi Canggih**: FFmpeg Enhanced Delogo
-- 📱 **Responsive**: Bekerja di semua perangkat
-- ⚡ **Serverless**: Deploy di Vercel untuk performa optimal
-- 🇮🇩 **Bahasa Indonesia**: Interface lengkap dalam bahasa Indonesia
-
-## 🚀 Deploy ke Vercel
-
-1. Push code ke GitHub repository
-2. Connect repository ke Vercel
-3. Vercel akan otomatis detect dan deploy
-
-### Environment Variables (Opsional)
-Tidak ada environment variables yang diperlukan untuk deploy basic.
-
-## 💻 Development Local
+## 🚀 **Quick Start**
 
 ```bash
-# Install dependencies
+# 1. Clone atau download project
+git clone <your-repo-url>
+cd video-watermark-removal
+
+# 2. Install dependencies
 npm install
 
-# Start development server
-npm run dev
+# 3. Start aplikasi (frontend + backend)
+npm run dev:full
 
-# Build for production
-npm run build
+# 4. Buka browser di:
+# Frontend: http://localhost:5174 (atau port yang ditampilkan)
+# Backend: http://localhost:3001
 ```
 
-## 🛠️ Teknologi
+## ✨ **Features**
 
-- **Frontend**: React + Vite
-- **Backend**: Vercel Serverless Functions
-- **Processing**: FFmpeg
-- **Upload**: Formidable
-- **Styling**: CSS Modern + Responsive
+### **Real Watermark Removal:**
+- ✅ **FFmpeg Native** - Processing cepat dan berkualitas tinggi
+- ✅ **Manual Area Selection** - Pilih area watermark dengan drag & drop
+- ✅ **Multiple Areas** - Hapus beberapa watermark sekaligus
+- ✅ **High Quality Output** - CRF 20 untuk hasil terbaik
+- ✅ **Large File Support** - Hingga 200MB per video
+- ✅ **No Time Limits** - Processing sepuasnya
+- ✅ **Progress Tracking** - Real-time progress display
 
-## 📖 Cara Penggunaan
+### **Supported Formats:**
+- Input: MP4, AVI, MOV, MKV, WebM
+- Output: MP4 (H.264)
 
-1. **Upload Video**: Pilih file video (max 50MB)
-2. **Seleksi Area**: Click & drag untuk memilih area watermark
-3. **Proses**: Klik tombol "Hapus Watermark"
-4. **Download**: Download hasil video yang sudah diproses
+## 🎯 **How to Use**
 
-## 🎯 Format yang Didukung
+1. **Start Application**: `npm run dev:full`
+2. **Open Browser**: Go to displayed URL (usually http://localhost:5173)
+3. **Upload Video**: Drag & drop atau click upload
+4. **Select Watermark Areas**: Drag di video untuk select area watermark
+5. **Process Video**: Click "Hapus Watermark"
+6. **Wait for Processing**: FFmpeg akan memproses video (1-5 menit)
+7. **Download Result**: Download video tanpa watermark
 
-- **Input**: MP4, AVI, MOV, WebM
-- **Output**: MP4
-- **Size Limit**: 50MB
+## 📋 **Available Scripts**
 
-## 📝 Lisensi
+```bash
+npm run dev:full        # Start frontend + backend
+npm run dev:frontend    # Frontend only (Vite)
+npm run dev:backend     # Backend only (Express + FFmpeg)
+npm start              # Alias untuk dev:full
+npm run build          # Build frontend untuk production
+```
 
-MIT License - Bebas digunakan untuk projek personal dan komersial.
+## 🛠️ **Tech Stack**
 
----
+- **Frontend**: React 19 + Vite
+- **Backend**: Express.js + FFmpeg Native
+- **Video Processing**: fluent-ffmpeg + ffmpeg-static
+- **UI**: CSS3 dengan drag & drop interface
 
-**🇮🇩 Made with ❤️ by Dafis Nadhif Saputra**
+## 📁 **Project Structure**
+
+```
+video-watermark-removal/
+├── src/
+│   ├── components/
+│   │   ├── VideoProcessor.jsx      # Main component
+│   │   ├── SmoothVideoPlayer.jsx   # Video player dengan selection
+│   │   └── ProcessingProgress.jsx  # Progress indicator
+│   ├── App.jsx
+│   └── main.jsx
+├── server.js                       # Backend server dengan FFmpeg
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+## 🎬 **FFmpeg Processing Details**
+
+### **Delogo Filter:**
+- Menggunakan `delogo=x:y:w:h` filter
+- Koordinat dari user selection area
+- Interpolasi cerdas untuk mengisi area watermark
+
+### **Quality Settings:**
+- **Video Codec**: H.264 (libx264)
+- **CRF**: 20 (high quality)
+- **Preset**: Medium (balance speed/quality)
+- **Audio**: Copy original (no re-encoding)
+
+## 🔧 **Troubleshooting**
+
+### **Port sudah digunakan:**
+- Vite akan otomatis cari port kosong
+- Backend selalu di port 3001
+
+### **FFmpeg error:**
+- Pastikan video format didukung
+- Coba dengan video MP4
+- Check ukuran file (max 200MB)
+
+### **Processing lambat:**
+- Normal untuk video besar
+- Local processing lebih cepat dari cloud
+- Monitor progress di console
+
+## 📝 **Notes**
+
+- **Desktop Only**: Aplikasi ini dirancang untuk development local
+- **No Cloud Deployment**: FFmpeg processing memerlukan server dedicated
+- **Real Processing**: Tidak ada mode demo, semua processing nyata
+- **High Performance**: Menggunakan FFmpeg native untuk speed optimal
+
+## 🎉 **Ready to Use!**
+
+Aplikasi siap untuk real watermark removal di komputer Anda. Tidak perlu internet setelah dependencies terinstall!
+
+**Run command: `npm run dev:full` dan mulai hapus watermark! 🚀**

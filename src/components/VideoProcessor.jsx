@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import SmoothVideoPlayer from './SmoothVideoPlayer'
 import ProcessingProgress from './ProcessingProgress'
 import './VideoProcessor.css'
@@ -12,6 +12,19 @@ const VideoProcessor = () => {
   const [processingProgress, setProcessingProgress] = useState(0)
   const [processingStep, setProcessingStep] = useState('')
   const [error, setError] = useState('')
+
+  // Cleanup blob URLs to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (uploadedVideoUrl && uploadedVideoUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(uploadedVideoUrl)
+      }
+      if (processedResult?.processedFile?.path && processedResult.processedFile.path.startsWith('blob:')) {
+        URL.revokeObjectURL(processedResult.processedFile.path)
+      }
+    }
+  }, [uploadedVideoUrl, processedResult])
+
   // Handle file upload
   const handleFileUpload = useCallback((event) => {
     const file = event.target.files[0]
@@ -40,13 +53,14 @@ const VideoProcessor = () => {
   const handleSelectionChange = useCallback((newSelections) => {
     setSelections(newSelections)
   }, [])
-
-  // Process video with manual selections
+  // Process video with client-side FFmpeg WASM  // Process video with server-side FFmpeg
   const processVideo = useCallback(async () => {
     if (!uploadedFile || selections.length === 0) {
       setError('Silakan upload video dan pilih minimal satu area watermark')
       return
-    }    setIsProcessing(true)
+    }
+
+    setIsProcessing(true)
     setProcessingProgress(0)
     setProcessingStep('Mempersiapkan video untuk diproses...')
     setError('')
@@ -56,45 +70,48 @@ const VideoProcessor = () => {
       formData.append('video', uploadedFile)
       formData.append('selections', JSON.stringify(selections))
 
-      // Simulate progress updates
-      const progressInterval = setInterval(() => {
-        setProcessingProgress(prev => {
-          if (prev < 80) return prev + Math.random() * 10
-          return prev
-        })
-      }, 1000)
+      setProcessingStep('Mengirim video ke server...')
+      setProcessingProgress(20)
 
+      console.log('� Sending video to server for FFmpeg processing...')
       const response = await fetch('/api/process-video-manual', {
         method: 'POST',
         body: formData
       })
 
-      clearInterval(progressInterval)
-
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Proses gagal')
-      }      const result = await response.json()
-      
-      // Handle base64 response for Vercel
-      if (result.processedFile.data) {
-        const byteCharacters = atob(result.processedFile.data)
-        const byteNumbers = new Array(byteCharacters.length)
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i)
-        }
-        const byteArray = new Uint8Array(byteNumbers)
-        const blob = new Blob([byteArray], { type: result.processedFile.mimeType || 'video/mp4' })
-        result.processedFile.path = URL.createObjectURL(blob)
+        throw new Error(errorData.error || 'Server error')
       }
-      
-      setProcessingProgress(100)
-      setProcessingStep('Penghapusan watermark selesai!')
-      setProcessedResult(result)
 
-    } catch (err) {
-      console.error('Processing error:', err)
-      setError(err.message || 'Terjadi kesalahan saat memproses')
+      setProcessingStep('Memproses video dengan FFmpeg Native...')
+      setProcessingProgress(80)
+
+      const result = await response.json()
+      
+      setProcessingStep('Selesai!')
+      setProcessingProgress(100)
+
+      // Create blob URL for download
+      const videoBlob = new Blob([
+        Uint8Array.from(atob(result.processedFile.data), c => c.charCodeAt(0))
+      ], { type: result.processedFile.mimeType })
+      
+      const blobUrl = URL.createObjectURL(videoBlob)
+      
+      setProcessedResult({
+        ...result,
+        processedFile: {
+          ...result.processedFile,
+          path: blobUrl
+        }
+      })
+
+      console.log('✅ Video berhasil diproses dengan server FFmpeg:', result.message)
+
+    } catch (error) {
+      console.error('Processing error:', error)
+      setError(error.message || 'Terjadi kesalahan saat memproses video')
     } finally {
       setIsProcessing(false)
       setTimeout(() => {
@@ -117,7 +134,8 @@ const VideoProcessor = () => {
   }, [])
 
   return (
-    <div className="video-processor">      {/* Header */}
+    <div className="video-processor">
+      {/* Header */}
       <div className="processor-header">
         <h2>🎯 Penghapus Watermark Manual</h2>
         <p>Upload video Anda dan pilih area watermark yang ingin dihapus</p>
@@ -242,9 +260,7 @@ const VideoProcessor = () => {
                   <span className="info-value">{processedResult.autoCleanup.deleteAfter}</span>
                 </div>
               )}
-            </div>
-
-            {/* Auto-cleanup notice */}
+            </div>            {/* Auto-cleanup notice */}
             {processedResult.autoCleanup && (
               <div className="cleanup-notice">
                 <div className="notice-icon">⏰</div>
@@ -254,7 +270,7 @@ const VideoProcessor = () => {
                   <small>Download video Anda sekarang untuk menyimpannya secara permanen!</small>
                 </div>
               </div>
-            )}            <div className="download-section">
+            )}<div className="download-section">
               <a
                 href={processedResult.processedFile.path}
                 download={processedResult.processedFile.filename}

@@ -41,3 +41,16 @@ temp_*/
 
 # Local Netlify folder
 .netlify
+
+# Video files and processing
+temp/
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.wmv
+*.flv
+no_watermark_*
+output_*
+input_*
