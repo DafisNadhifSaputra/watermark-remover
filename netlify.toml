@@ -47,6 +47,3 @@
   
   # Runtime settings
   node_bundler = "esbuild"
-  
-  # Timeout untuk functions (max 15 detik di free plan)
-  timeout = 15
