@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Vercel
+.vercel
+
+# Uploads & Processed (not needed in repo)
+uploads/
+processed/
+temp_*/
+
+# Environment variables
+.env
+.env.local
+.env.production.local
+
+# DS_Store
+.DS_Store
